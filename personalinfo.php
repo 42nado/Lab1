@@ -7,7 +7,9 @@
     <title>Document</title>
     <style>
     html{
-        background-color:#f1f1f1;
+        font-family:"Trebuchet MS";
+        background: rgb(240,246,246);
+    background: linear-gradient(357deg, rgba(240,246,246,1) 0%, rgba(136,196,237,1) 100%);
     }
     #fav{
         text-align:center;
@@ -23,11 +25,14 @@
     }
     fieldset{
         padding: 1em;
-        background-color: #f1f1f1;
-        border-radius: 2px;
-        margin-bottom: 12px;
+        background-color: #f9f9f9;
+        border-radius: 20px;
+        margin-bottom: 30px;
         overflow: hidden;
-        padding: 0 .625em;
+        text-align: left;
+        border: 1px solid #0099dd;
+        margin: 3pt;
+        box-shadow:0 0 15px #999;
     }
     table{
         border-collapse:collapse;
@@ -51,34 +56,101 @@
     #right {
     margin-left:40px;
     grid-column:2;
+    font-size:1rem;
     /* overflow: hidden; */
 
     }
     form {
     display: inline-block;
+    height:100%;
     }
     .sec1 {
+        padding-top:20px;
         min-width:100px;
     }
     textarea {
     resize: none;
     }
- 
+    .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    }
+    .button {
+    background-color: #67b5eb; 
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius:20px;
+    }
+    .legend-class{
+    border: 1px black solid; 
+    margin-left: 1em; 
+    padding: 0.2em 0.8em;
+    background-color:black;
+    color:white;
+    margin:0 auto;
+    }
+    input[type=text] {
+    width: 100%;
+    padding: 10px 10px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    }
+    input[type="radio"] {
+    -ms-transform: scale(1.5); /* IE 9 */
+    -webkit-transform: scale(1.5); /* Chrome, Safari, Opera */
+    transform: scale(1.5);
+    border: 5px solid #0DFF92;
+    
+    }
+    input[type="text"],textarea {
+    border-radius:5px;
+    
+    }
+    input[type="checkbox"]{
+        width: 20px;
+        height: 20px;
+    }
+    #drop{
+    border-radius:10px;
+    width: 120px;
+    height: 50px;
+    font-size:1rem;
+    line-height: 50px;
+    -webkit-appearance: menulist-button;
+    -moz-appearance:none;   
+    }
+    label{
+        font-weight:bold
+    }
+    #multi{
+    border-radius:10px;
+    width: 150px;
+    height: 70px;  
+    font-size:1rem;  
+    }
     </style>
 </head>
 <body>
-
-    <form action="perSonalinfo2.php" method="GET" target="_blank" action=" ">
+<div class="container">
+<form  method="$_POST"  action="personalinfo2.php">
+    
     <fieldset>
-        <legend>Personal Information</legend>
+        <legend class="legend-class">Personal Information</legend>
  
     <section class="sec1"> 
            <label for="studentID"> Student Number :</label>
-           <input type="text" id="ID" name="ID" required><br>
+           <input type="text" id="ID" name="ID" placeholder="STUDENT NUMBER" required><br>
             <label for="fname"><br> First Name : </label>
-            <input type="text" id="fname" name="fname" required><br>
+            <input type="text" id="fname" name="fname" placeholder="FIRSTNAME" required><br>
             <label for="lname"><br>Last Name : </label></td>
-            <input type="text" id="lname" name="lname" required><br>
+            <input type="text" id="lname" name="lname" placeholder="LASTNAME"required><br>
             <label> Gender :</label>
             <input type="radio" id="male" name="gender" value="Male">
             <label for="male">Male</label>
@@ -88,7 +160,7 @@
     <section id="wrapper">
         <div id="left">
             <label> Status : </label>
-            <select name="status">
+            <select id="drop" name="status">
                 <option value="Single">Single</option>
                 <option value="Married">Married</option>
                 <option value="Widow">Widow</option>
@@ -96,7 +168,7 @@
         </div>
         <div id="right">
             <label> Favorite Food :</label><br>
-            <select name = "fav_food[]" multiple>
+            <select id="multi"name = "fav_food[]" multiple>
                 <option value = "Barbeque">Barbeque</option>
                 <option value = "Hotdog">Hotdog</option>
                 <option value = "Menudo">Menudo</option>
@@ -136,13 +208,16 @@
             <!-- <input  type="text" id="quote" name="quote" required ><br><br> -->
             <textarea rows="4" cols="30" type="text" id="quote" name="quote" required >
             </textarea><br><br>
-            <input type="submit" value="Submit" name="submit">
-            <input type="reset">
+            <button class="button button1" name="submit">Submit</button>
+            <button class="button button1" type="reset">Reset</button>
+            <!-- <input type="submit" value="Submit" name="submit">
+            <input type="reset"> -->
         </div>
     </section>       
 
            
             </fieldset>
+            </div>
     </form>
 
     <?php // nichecheck kung submitted na yung form
@@ -152,60 +227,7 @@
     $style = "style='display:none;'";
     }
     ?>
-     
-    <section id = 'FULL' <?php echo $style;?>> <!-- nakahide hanggat di pa submitted -->
-        
-        <table> <!-- Printed na yung Info -->
-            <tr>
-                <td colspan="2">Personal Information</td>
-            </tr>
-            <tr>
-                <th> Student Number: </th>
-                <th><?php echo $_POST["ID"]?>
-            </tr>
-            <tr>
-                <td> Name: </td>
-                <td><?php echo $_POST['fname'] . " " . $_POST['lname'] ?></td>
-            </tr>
-            <tr>
-                <td> Gender: </td>
-                <td> <?php echo $_POST['gender'] ?></td>
-            </tr>
-            <tr>
-                <td> Status: </td>
-                <td> <?php echo $_POST['status'] ?></td>
-            </tr>
-            <tr>
-                <td> Courses:</td>
-                <td><?php
-                if(!empty($_POST['course'])) 
-                {// Binibilang kung ilan yung nacheck na box
-                    $checked_count = count($_POST['course']);
-                    //print ng bawat checked box
-                    foreach($_POST['course'] as $selected) 
-                    {
-                        echo "<p>" . $selected . "<p>";
-                    } 
-                }?>
-                    </td> 
-            </tr>
-            <tr>
-                <td> Foods: </td>
-                <td><?php
-                if(!empty($_POST['fav_food'])) 
-                {   //print ng bawat checked box
-                    foreach($_POST['fav_food'] as $select) 
-                    {
-                        echo "<p>" . $select . "<p>";
-                    } 
-                }?> </td>
-            </tr>
-            <tr>
-                <td> Favorite quote: </td>
-                <td> <?php echo $_POST['quote']?></td>
-            </tr>
-        </table>
-    </section>
+
 
 </body>
 </html>
